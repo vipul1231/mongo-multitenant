@@ -1,0 +1,19 @@
+
+
+multi:
+  config:
+    mongo:
+      properties:
+        - tenant: pl
+          properties:
+            host: localhost
+            port: 27017
+            database: country_pl
+          basePackages: com.project.multitenant.repository
+        - tenant: hr
+          properties:
+            host: localhost
+            port: 27018
+            database: coyntry_hr
+          basePackages: com.project.multitenant.repository
+

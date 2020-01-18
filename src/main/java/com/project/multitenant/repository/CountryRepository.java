@@ -1,22 +1,22 @@
 package com.project.multitenant.repository;
 
 import com.project.multitenant.model.Country;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 
 @Repository
 public class CountryRepository {
 
-    @Autowired
-    private Map<String, MongoTemplate> multiTenantMongo;
+    @Resource(name = "multiTenantMongoConfig")
+    private Map<String, MongoOperations> multiTenantMongoConfig;
 
     public boolean saveCountry(Country country){
-        MongoTemplate mongoTemplate = multiTenantMongo.get(country.getCountry());
+        MongoTemplate mongoTemplate = (MongoTemplate) multiTenantMongoConfig.get(country.getCountry());
         mongoTemplate.save(country);
         return true;
     }
